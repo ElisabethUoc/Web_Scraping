@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from IPython.display import IFrame
 import time
+import pandas as pd
+import csv
 
 url = 'https://www.hometogo.com/search/5460aea910151?adults=2&arrival=2021-05-31&duration=6&maxPricePerNight=175EUR'
 
@@ -58,8 +60,20 @@ def extract_element(listing_html, params):
     return output
 
 
-for feature in RULES_SEARCH_PAGE:
-    try:
-        print(f"{feature}: {extract_element(listings[0], RULES_SEARCH_PAGE[feature])}")
-    except:
-        print(f"{feature}: empty")
+one_row = []
+for i in range(len(listings)):
+    for feature in RULES_SEARCH_PAGE:
+        try:
+            one_row.append(extract_element(listings[i], RULES_SEARCH_PAGE[feature]))
+        except:
+            one_row.append("empty")
+
+list_of_rows = [one_row[i:i+7] for i in range(0, len(one_row), 7)]
+
+with open('hometogo.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(list_of_rows)
+    
+df = pd.read_csv('hometogo.csv')
+df.columns = list(RULES_SEARCH_PAGE.keys())
+df.to_csv('hometogo.csv')
