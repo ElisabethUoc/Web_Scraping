@@ -36,7 +36,7 @@ FEATURES = {
     'price': {'tag': 'span', 'class': 'fwb wsnw fz16'},
     'location': {'tag': 'span', 'class': 'c-gray-extra-dark text-small text-overflow'},
     'rating': {'tag': 'span', 'class': 'text-small c-accent-normal'},
-    'important_info': {'tag': 'span', 'class': 'fz11'},
+    'important_info': {'tag': 'div', 'class': 'dif fxww aifs cols>m4 rows>m4'},
     'specifications': {'tag': 'div', 'class': 'text-small text-overflow'},
     'link': {'tag': 'a', 'get': 'href'}
 }
